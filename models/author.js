@@ -12,7 +12,13 @@ let AuthorSchema = new Schema({
 AuthorSchema.virtual('name').get(function() {
   return this.family_name + ', ' + this.first_name;
 });
+
 AuthorSchema.virtual('lifespan').get(function() {
+  if (date_of_birth === undefined) return 'N/A';
+
+  if (date_of_death === undefined)
+    return this.date_of_birth.getYear().toString() + ' -';
+  console.log('got here');
   return (
     this.date_of_death.getYear() - this.date_of_birth.getYear()
   ).toString();
